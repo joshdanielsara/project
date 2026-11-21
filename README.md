@@ -24,3 +24,15 @@ Open [http://localhost:3000](http://localhost:3000).
 9. **Celebration** — confetti, hearts, and replay
 
 Music is optional and never autoplays — use the floating music button.
+
+## Email notifications (Brevo)
+
+When she taps **YES, I WILL!**, the server sends two romantic emails via Brevo.
+
+1. Copy `.env.example` to `.env.local` and fill in:
+   - `BREVO_API_KEY`
+   - `EMAIL_FROM` (verified Brevo sender)
+   - `YOUR_EMAIL` / `HER_EMAIL` (defaults)
+   - `ADMIN_PASSWORD`
+2. Open `/admin`, sign in, and set/update the recipient emails.
+3. Use **Reset YES flag** in admin if you need to test sending again.
