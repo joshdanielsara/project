@@ -36,3 +36,4 @@ When she taps **YES, I WILL!**, the server sends two romantic emails via Brevo.
    - `ADMIN_PASSWORD`
 2. Open `/admin`, sign in, and set/update the recipient emails.
 3. Use **Reset YES flag** in admin if you need to test sending again.
+# project
