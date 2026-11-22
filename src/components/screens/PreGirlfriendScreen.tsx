@@ -51,8 +51,10 @@ export function PreGirlfriendScreen({ onNext }: ScreenProps) {
             other, and enjoy what we have. I don&apos;t want you to feel pressured. I just want
             to be honest about what I hope for us.
           </p>
-          <p className="font-semibold text-ink">
-            There&apos;s just one last thing I want to ask you...
+          <p>
+            And whatever your answer may be, please know that there&apos;s no pressure to answer
+            right away. I want you to take your time and answer only when you&apos;re comfortable.
+            ❤️
           </p>
         </motion.div>
 

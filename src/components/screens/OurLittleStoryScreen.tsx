@@ -11,46 +11,62 @@ import type { ScreenProps } from "@/lib/types";
 const MILESTONES = [
   {
     date: "October 15",
-    title: "Our First Chat",
-    description: "The day our story started with a simple conversation.",
+    number: "01",
+    title: "Where It All Started",
+    paragraphs: [
+      "It all started with a simple message from you. I honestly didn't know that something as small as that would eventually lead us here. What started as an ordinary conversation slowly became something I looked forward to every day.",
+      "Little by little, we found ourselves talking more, sharing random thoughts, and getting comfortable with each other. Looking back, I'm really glad you made that first move because it gave us the chance to start something beautiful.",
+    ],
   },
   {
     date: "October 30",
-    title: "Our First Meet",
-    description:
-      "From chatting through a screen to finally seeing each other in person.",
+    number: "02",
+    title: "Under the Same Sky",
+    paragraphs: [
+      "This was the first time we finally got to see each other in person. I won't lie, it was a little awkward at first HAHAHA, but that's what made it even more memorable.",
+      "What made that day extra special was seeing my very first shooting star, and having you right there with me. I never imagined that my first time witnessing something like that would happen during our first meeting. It's one of those moments I know I'll always remember, not just because of the shooting star, but because I experienced it with you.",
+    ],
   },
   {
     date: "November 1",
-    title: "Our Second Meet",
-    description: "Another day, another memory together.",
+    number: "03",
+    title: "Beyond the Little Conversations",
+    paragraphs: [
+      "As we spent more time talking, our conversations slowly became deeper and more meaningful. We started opening up about ourselves, sharing our thoughts, experiences, and things we probably wouldn't tell just anyone.",
+      "I got to understand you a little more, appreciate the way you think, and discover the little things that make you who you are. It wasn't just about having someone to talk to anymore. It became about genuinely wanting to understand each other and being comfortable enough to be ourselves.",
+    ],
   },
   {
     date: "November 2",
-    title: "Another Special Day",
-    description: "A little more time together, a little more to remember.",
+    number: "04",
+    title: "When Feelings Became More Obvious",
+    paragraphs: [
+      "Eventually, we became more comfortable showing our affection for each other. The little sweet gestures, the way we talk, and how we express how much we care started becoming part of our everyday moments.",
+      "I guess this was when things started feeling a little more special between us. It made me realize how much I appreciate what we have and how happy I am that we've reached this point. And honestly, it makes me excited for all the moments we haven't experienced yet.",
+    ],
   },
 ] as const;
 
 function TimelineItem({
   date,
+  number,
   title,
-  description,
+  paragraphs,
   index,
   isLast,
 }: {
   date: string;
+  number: string;
   title: string;
-  description: string;
+  paragraphs: readonly string[];
   index: number;
   isLast: boolean;
 }) {
   const ref = useRef<HTMLLIElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0.25 });
 
   return (
     <li ref={ref} className="relative pl-12 sm:pl-14">
-      {/* connector line */}
       {!isLast && (
         <span
           className="absolute left-[0.95rem] top-8 h-[calc(100%-0.5rem)] w-0.5 bg-gradient-to-b from-rose-300 via-rose-200 to-rose-100 sm:left-[1.05rem]"
@@ -58,7 +74,6 @@ function TimelineItem({
         />
       )}
 
-      {/* heart marker */}
       <motion.span
         className="absolute left-0 top-1 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-rose-300 to-rose-500 shadow-[0_6px_16px_rgba(244,63,106,0.35)] sm:h-9 sm:w-9"
         initial={{ scale: 0, opacity: 0 }}
@@ -83,11 +98,15 @@ function TimelineItem({
           {date}
         </p>
         <h3 className="font-display mt-1.5 text-lg font-bold text-ink sm:text-xl">
+          <span className="text-rose-400">{number}</span>
+          <span className="mx-1.5 text-rose-300">—</span>
           {title}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-ink-soft sm:text-[0.95rem]">
-          {description}
-        </p>
+        <div className="mt-3 space-y-3 text-sm leading-relaxed text-ink-soft sm:text-[0.95rem] sm:leading-7">
+          {paragraphs.map((paragraph) => (
+            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+          ))}
+        </div>
       </motion.article>
     </li>
   );
@@ -132,7 +151,7 @@ export function OurLittleStoryScreen({ onNext }: ScreenProps) {
         <ol className="mt-8 space-y-5 sm:mt-9 sm:space-y-6">
           {MILESTONES.map((item, index) => (
             <TimelineItem
-              key={item.date + item.title}
+              key={item.number}
               {...item}
               index={index}
               isLast={index === MILESTONES.length - 1}
