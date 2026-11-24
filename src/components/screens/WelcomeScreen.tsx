@@ -5,13 +5,43 @@ import { useMemo, useState, type FormEvent, type ReactNode } from "react";
 import type { ScreenProps } from "@/lib/types";
 
 type SurveyAnswers = {
-  day: string;
-  ready: string;
-  thoughts: string;
+  fullName: string;
+  aboutYourself: string;
+  freeTime: string;
+  valuedQualities: string;
+  anythingElse: string;
 };
 
-const DAY_OPTIONS = ["Pretty good!", "It's okay.", "Could be better."] as const;
-const READY_OPTIONS = ["Yes", "I guess?", "Why am I here? HAHAHA"] as const;
+const ABOUT_OPTIONS = [
+  "Quiet and thoughtful",
+  "Friendly and outgoing",
+  "Easygoing and calm",
+  "Curious and adventurous",
+] as const;
+
+const FREE_TIME_OPTIONS = [
+  "Watching movies or series",
+  "Listening to music",
+  "Going outside / walking around",
+  "Staying home and relaxing",
+] as const;
+
+const QUALITY_OPTIONS = [
+  "Kindness",
+  "Honesty",
+  "Sense of humor",
+  "Loyalty",
+] as const;
+
+const ANYTHING_ELSE_OPTIONS = [
+  "I'm doing well lately",
+  "Things have been busy",
+  "I'm open to sharing more later",
+  "Prefer not to say",
+] as const;
+
+const inputClassName =
+  "w-full border-0 border-b border-[#dadce0] bg-transparent px-1 py-2 text-sm text-[#202124] outline-none transition-colors placeholder:text-[#9aa0a6] focus:border-[#673ab7] sm:text-[0.95rem]";
 
 function ProgressBar({ value }: { value: number }) {
   return (
@@ -49,7 +79,7 @@ function QuestionCard({
       className="rounded-xl border border-[#dadce0] bg-white p-5 shadow-sm sm:p-6"
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.08 * number, duration: 0.4 }}
+      transition={{ delay: 0.06 * number, duration: 0.4 }}
       aria-labelledby={`q${number}-title`}
     >
       <h2 id={`q${number}-title`} className="text-base font-medium text-[#202124] sm:text-[1.05rem]">
@@ -105,31 +135,78 @@ function RadioOption({
   );
 }
 
+function MultipleChoice({
+  name,
+  options,
+  value,
+  onChange,
+  legend,
+}: {
+  name: string;
+  options: readonly string[];
+  value: string;
+  onChange: (value: string) => void;
+  legend: string;
+}) {
+  return (
+    <fieldset>
+      <legend className="sr-only">{legend}</legend>
+      <div className="space-y-1">
+        {options.map((option) => (
+          <RadioOption
+            key={option}
+            name={name}
+            value={option}
+            label={option}
+            checked={value === option}
+            onChange={onChange}
+          />
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
 export function WelcomeScreen({ onNext }: ScreenProps) {
   const [answers, setAnswers] = useState<SurveyAnswers>({
-    day: "",
-    ready: "",
-    thoughts: "",
+    fullName: "",
+    aboutYourself: "",
+    freeTime: "",
+    valuedQualities: "",
+    anythingElse: "",
   });
   const [submitted, setSubmitted] = useState(false);
   const [showError, setShowError] = useState(false);
 
   const progress = useMemo(() => {
     let filled = 0;
-    if (answers.day) filled += 1;
-    if (answers.ready) filled += 1;
-    if (answers.thoughts.trim()) filled += 1;
-    return (filled / 3) * 100;
+    if (answers.fullName.trim()) filled += 1;
+    if (answers.aboutYourself) filled += 1;
+    if (answers.freeTime) filled += 1;
+    if (answers.valuedQualities) filled += 1;
+    if (answers.anythingElse) filled += 1;
+    return (filled / 5) * 100;
   }, [answers]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (!answers.day || !answers.ready) {
+    if (
+      !answers.fullName.trim() ||
+      !answers.aboutYourself ||
+      !answers.freeTime ||
+      !answers.valuedQualities ||
+      !answers.anythingElse
+    ) {
       setShowError(true);
       return;
     }
     setShowError(false);
     setSubmitted(true);
+  };
+
+  const updateAnswer = <K extends keyof SurveyAnswers>(key: K, value: SurveyAnswers[K]) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+    setShowError(false);
   };
 
   return (
@@ -143,19 +220,17 @@ export function WelcomeScreen({ onNext }: ScreenProps) {
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4 }}
           >
-            {/* Header card */}
             <div className="overflow-hidden rounded-xl border border-[#dadce0] bg-white shadow-sm">
               <div className="h-2.5 bg-[#673ab7]" aria-hidden />
               <div className="px-5 py-6 sm:px-7 sm:py-7">
                 <p className="text-xs font-medium uppercase tracking-[0.14em] text-[#673ab7]">
-                  Personal questionnaire
+                  General questionnaire
                 </p>
                 <h1 className="mt-2 font-sans text-2xl font-normal tracking-tight text-[#202124] sm:text-3xl">
-                  A Little Survey
+                  Personal Information Form
                 </h1>
                 <p className="mt-3 text-sm leading-relaxed text-[#5f6368] sm:text-[0.95rem]">
-                  Hi! I have a few questions for you. Please answer honestly. This won&apos;t take
-                  much of your time.
+                  Please answer the following questions honestly. This will only take a minute.
                 </p>
                 <div className="mt-5">
                   <div className="mb-1.5 flex items-center justify-between text-xs text-[#5f6368]">
@@ -168,67 +243,70 @@ export function WelcomeScreen({ onNext }: ScreenProps) {
             </div>
 
             <form className="mt-3 space-y-3" onSubmit={handleSubmit} noValidate>
-              <QuestionCard number={1} title="How's your day going?" required>
-                <fieldset>
-                  <legend className="sr-only">How&apos;s your day going?</legend>
-                  <div className="space-y-1">
-                    {DAY_OPTIONS.map((option) => (
-                      <RadioOption
-                        key={option}
-                        name="day"
-                        value={option}
-                        label={option}
-                        checked={answers.day === option}
-                        onChange={(value) => {
-                          setAnswers((prev) => ({ ...prev, day: value }));
-                          setShowError(false);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </fieldset>
+              <QuestionCard number={1} title="What is your full name?" required>
+                <label htmlFor="fullName" className="sr-only">
+                  What is your full name?
+                </label>
+                <input
+                  id="fullName"
+                  type="text"
+                  value={answers.fullName}
+                  onChange={(event) => updateAnswer("fullName", event.target.value)}
+                  placeholder="Your answer"
+                  className={inputClassName}
+                  autoComplete="name"
+                />
+              </QuestionCard>
+
+              <QuestionCard number={2} title="How would you briefly describe yourself?" required>
+                <MultipleChoice
+                  name="aboutYourself"
+                  legend="How would you briefly describe yourself?"
+                  options={ABOUT_OPTIONS}
+                  value={answers.aboutYourself}
+                  onChange={(value) => updateAnswer("aboutYourself", value)}
+                />
               </QuestionCard>
 
               <QuestionCard
-                number={2}
-                title="Are you ready for a few unexpected questions?"
+                number={3}
+                title="What do you usually enjoy doing in your free time?"
                 required
               >
-                <fieldset>
-                  <legend className="sr-only">
-                    Are you ready for a few unexpected questions?
-                  </legend>
-                  <div className="space-y-1">
-                    {READY_OPTIONS.map((option) => (
-                      <RadioOption
-                        key={option}
-                        name="ready"
-                        value={option}
-                        label={option}
-                        checked={answers.ready === option}
-                        onChange={(value) => {
-                          setAnswers((prev) => ({ ...prev, ready: value }));
-                          setShowError(false);
-                        }}
-                      />
-                    ))}
-                  </div>
-                </fieldset>
+                <MultipleChoice
+                  name="freeTime"
+                  legend="What do you usually enjoy doing in your free time?"
+                  options={FREE_TIME_OPTIONS}
+                  value={answers.freeTime}
+                  onChange={(value) => updateAnswer("freeTime", value)}
+                />
               </QuestionCard>
 
-              <QuestionCard number={3} title="Any final thoughts before proceeding?">
-                <label htmlFor="thoughts" className="sr-only">
-                  Any final thoughts before proceeding?
-                </label>
-                <input
-                  id="thoughts"
-                  type="text"
-                  value={answers.thoughts}
-                  onChange={(event) =>
-                    setAnswers((prev) => ({ ...prev, thoughts: event.target.value }))
-                  }
-                  placeholder="Your answer"
-                  className="w-full border-0 border-b border-[#dadce0] bg-transparent px-1 py-2 text-sm text-[#202124] outline-none transition-colors placeholder:text-[#9aa0a6] focus:border-[#673ab7] sm:text-[0.95rem]"
+              <QuestionCard
+                number={4}
+                title="What qualities do you value most in the people around you?"
+                required
+              >
+                <MultipleChoice
+                  name="valuedQualities"
+                  legend="What qualities do you value most in the people around you?"
+                  options={QUALITY_OPTIONS}
+                  value={answers.valuedQualities}
+                  onChange={(value) => updateAnswer("valuedQualities", value)}
+                />
+              </QuestionCard>
+
+              <QuestionCard
+                number={5}
+                title="Is there anything else you'd like to share about yourself?"
+                required
+              >
+                <MultipleChoice
+                  name="anythingElse"
+                  legend="Is there anything else you'd like to share about yourself?"
+                  options={ANYTHING_ELSE_OPTIONS}
+                  value={answers.anythingElse}
+                  onChange={(value) => updateAnswer("anythingElse", value)}
                 />
               </QuestionCard>
 
@@ -274,7 +352,13 @@ export function WelcomeScreen({ onNext }: ScreenProps) {
                 className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#e8f0fe] text-[#1a73e8]"
                 aria-hidden
               >
-                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="2.4">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                >
                   <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>

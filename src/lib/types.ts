@@ -1,6 +1,10 @@
 export type Screen =
   | "welcome"
-  | "listening"
+  | "courtingIntro"
+  | "whyThis"
+  | "howIFeel"
+  | "courtIntention"
+  | "beforeCourtAsk"
   | "courtship"
   | "story"
   | "message"
@@ -11,7 +15,11 @@ export type Screen =
 
 export const SCREEN_ORDER: Screen[] = [
   "welcome",
-  "listening",
+  "courtingIntro",
+  "whyThis",
+  "howIFeel",
+  "courtIntention",
+  "beforeCourtAsk",
   "courtship",
   "story",
   "message",
@@ -21,8 +29,21 @@ export const SCREEN_ORDER: Screen[] = [
   "celebration",
 ];
 
+const LEGACY_SCREEN_MAP: Record<string, Screen> = {
+  listening: "courtingIntro",
+};
+
 export function isScreen(value: string | null | undefined): value is Screen {
-  return !!value && SCREEN_ORDER.includes(value as Screen);
+  if (!value) return false;
+  if (SCREEN_ORDER.includes(value as Screen)) return true;
+  return value in LEGACY_SCREEN_MAP;
+}
+
+export function resolveScreen(value: string | null | undefined): Screen {
+  if (!value) return "welcome";
+  if (SCREEN_ORDER.includes(value as Screen)) return value as Screen;
+  if (value in LEGACY_SCREEN_MAP) return LEGACY_SCREEN_MAP[value];
+  return "welcome";
 }
 
 export function getPreviousScreen(screen: Screen): Screen | null {

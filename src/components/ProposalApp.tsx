@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { WelcomeScreen } from "@/components/screens/WelcomeScreen";
-import { ListeningScreen } from "@/components/screens/ListeningScreen";
+import { StoryBeatScreen } from "@/components/screens/StoryBeatScreen";
 import { CourtshipScreen } from "@/components/screens/CourtshipScreen";
 import { OurLittleStoryScreen } from "@/components/screens/OurLittleStoryScreen";
 import { HeartfeltMessageScreen } from "@/components/screens/HeartfeltMessageScreen";
@@ -17,14 +17,14 @@ import { BackButton } from "@/components/ui/BackButton";
 import { useMusic } from "@/hooks/useMusic";
 import {
   getPreviousScreen,
-  isScreen,
+  resolveScreen,
   type Screen,
 } from "@/lib/types";
 
 const pageVariants = {
-  initial: { opacity: 0, y: 28, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 22, filter: "blur(5px)" },
   animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-  exit: { opacity: 0, y: -20, filter: "blur(4px)" },
+  exit: { opacity: 0, y: -16, filter: "blur(4px)" },
 };
 
 export function ProposalApp() {
@@ -33,10 +33,10 @@ export function ProposalApp() {
   const searchParams = useSearchParams();
   const { isPlaying, toggle } = useMusic();
 
-  const screen: Screen = useMemo(() => {
-    const step = searchParams.get("step");
-    return isScreen(step) ? step : "welcome";
-  }, [searchParams]);
+  const screen: Screen = useMemo(
+    () => resolveScreen(searchParams.get("step")),
+    [searchParams],
+  );
 
   const goTo = useCallback(
     (next: Screen) => {
@@ -95,10 +95,52 @@ export function ProposalApp() {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
             {screen === "welcome" && (
-              <WelcomeScreen onNext={() => goTo("listening")} />
+              <WelcomeScreen onNext={() => goTo("courtingIntro")} />
             )}
-            {screen === "listening" && (
-              <ListeningScreen onNext={() => goTo("courtship")} onBack={goBack} />
+            {screen === "courtingIntro" && (
+              <StoryBeatScreen
+                lines={[
+                  "Well, mao to ang introduction HAHAHA.",
+                  "Actually, naa pa koy something nga gusto i-share nimo.",
+                ]}
+                onNext={() => goTo("whyThis")}
+              />
+            )}
+            {screen === "whyThis" && (
+              <StoryBeatScreen
+                lines={[
+                  "I made this website kay gusto nako i-express properly ang akong intentions.",
+                  "Bitaw, mas personal man unta ni kaysa usa ka plain message.",
+                ]}
+                onNext={() => goTo("howIFeel")}
+              />
+            )}
+            {screen === "howIFeel" && (
+              <StoryBeatScreen
+                lines={[
+                  "Kabalo ka, dugay-dugay na pud ni nako gihuna-hunaan.",
+                  "I just want to be honest with you, kay I think you deserve that.",
+                ]}
+                onNext={() => goTo("courtIntention")}
+              />
+            )}
+            {screen === "courtIntention" && (
+              <StoryBeatScreen
+                lines={[
+                  "Ganahan ko nga i-pursue ka properly, dili lang casually.",
+                  "I want to take this seriously, and show you nga sincere gyud ko.",
+                ]}
+                onNext={() => goTo("beforeCourtAsk")}
+              />
+            )}
+            {screen === "beforeCourtAsk" && (
+              <StoryBeatScreen
+                lines={[
+                  "And finally, naa koy one important question nga gusto unta nako ipangutana nimo.",
+                ]}
+                buttonLabel="I'm ready ♡"
+                onNext={() => goTo("courtship")}
+              />
             )}
             {screen === "courtship" && (
               <CourtshipScreen onNext={() => goTo("story")} onBack={goBack} />
