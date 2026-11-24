@@ -15,8 +15,8 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Something Special For You ❤️",
-  description: "A little romantic question, made just for you.",
+  title: "Personal Information Form",
+  description: "Please complete this short personal information form.",
 };
 
 export const viewport: Viewport = {
