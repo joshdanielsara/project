@@ -33,7 +33,7 @@ export function CourtshipScreen({ onNext }: ScreenProps) {
           Can I officially court you?
         </h1>
         <p className="mt-3 text-base text-ink-soft sm:text-lg">
-          I have something I&apos;ve been wanting to ask you.
+          I have something I&apos;ve been wanting to share with you.
         </p>
 
         <motion.div

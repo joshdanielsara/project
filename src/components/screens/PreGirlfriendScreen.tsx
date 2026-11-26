@@ -29,7 +29,7 @@ export function PreGirlfriendScreen({ onNext }: ScreenProps) {
           {...fadeUp}
           transition={{ delay: 0.1, duration: 0.45 }}
         >
-          A little more before I ask...
+          A little more from me...
         </motion.h1>
 
         <motion.div
@@ -38,24 +38,16 @@ export function PreGirlfriendScreen({ onNext }: ScreenProps) {
           transition={{ delay: 0.22, duration: 0.45 }}
         >
           <p>
-            I know baga kog nawng mangutana dayon ani HAHAHA, but I just want to know if
-            you&apos;re ready to take things to the next level with me.
+            I know medyo unexpected ni HAHAHA, but I just want to be honest about how I feel.
           </p>
           <p>
-            Kabalo ko nga dili pa ta pwede mahimong legal karon, and I completely understand
-            that. Dili man pud ko ganahan nga magdali ta. I&apos;m willing to take things slowly
-            and wait until the right time comes.
+            Kabalo ko nga dili pa ta pwede mahimong legal karon, and I completely understand.
           </p>
           <p>
-            For now, I just want us to keep choosing each other, continue getting to know each
-            other, and enjoy what we have. I don&apos;t want you to feel pressured. I just want
-            to be honest about what I hope for us.
+            I don&apos;t want to rush anything. I just want you to know that my intentions are
+            genuine, and I&apos;m happy to take things one step at a time.
           </p>
-          <p>
-            And whatever your answer may be, please know that there&apos;s no pressure to answer
-            right away. I want you to take your time and answer only when you&apos;re comfortable.
-            ❤️
-          </p>
+          <p>I hope we can continue choosing each other. ❤️</p>
         </motion.div>
 
         <motion.button

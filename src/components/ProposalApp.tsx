@@ -136,9 +136,9 @@ export function ProposalApp() {
             {screen === "beforeCourtAsk" && (
               <StoryBeatScreen
                 lines={[
-                  "And finally, naa koy one important question nga gusto unta nako ipangutana nimo.",
+                  "And finally, naa koy something nga gusto unta nako i-share nimo.",
                 ]}
-                buttonLabel="I'm ready ♡"
+                buttonLabel="Continue ♡"
                 onNext={() => goTo("courtship")}
               />
             )}

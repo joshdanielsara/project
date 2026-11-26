@@ -7,11 +7,9 @@ import { SoftCard } from "@/components/ui/SoftCard";
 import { BackgroundParticles } from "@/components/ui/BackgroundParticles";
 import type { ScreenProps } from "@/lib/types";
 
-const LETTER = `I don't expect everything to happen all at once. I just want us to enjoy every step of getting to know each other, without rushing anything. I want to understand the little things about you, be there for you, and learn how to make you feel appreciated.
+const LETTER = `I don't expect everything to happen at once. I just want to enjoy getting to know you, one step at a time.
 
-I want to show you through my actions that I mean what I say. I may not always get everything right, but I'll make sure that my intentions remain genuine and that I give this the effort it deserves.
-
-Most importantly, I want you to feel that I'm someone who's willing to take the time and effort to pursue you properly.`;
+I'll do my best to be genuine, consistent, and make you feel appreciated.`;
 
 export function HeartfeltMessageScreen({ onNext }: ScreenProps) {
   const [isOpen, setIsOpen] = useState(false);
@@ -88,11 +86,11 @@ export function HeartfeltMessageScreen({ onNext }: ScreenProps) {
           className="btn-primary focus-ring mt-7 w-full rounded-2xl px-6 py-3.5 text-base font-semibold disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onNext}
           disabled={!doneTyping}
-          aria-label="I have one more question"
+          aria-label="A little something for you"
           whileHover={doneTyping ? { scale: 1.02 } : undefined}
           whileTap={doneTyping ? { scale: 0.98 } : undefined}
         >
-          I have one more question...
+          A little something for you...
         </motion.button>
       </SoftCard>
     </div>

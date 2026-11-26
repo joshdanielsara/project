@@ -24,7 +24,7 @@ export function BeforeAskScreen({ onNext }: ScreenProps) {
           <span className="text-rose-300">❀</span>
         </div>
 
-        <h1 className="sr-only">Before I ask</h1>
+        <h1 className="sr-only">Shared moments</h1>
 
         <motion.div
           className="mt-2 space-y-4 rounded-[1.25rem] border border-rose-100/90 bg-gradient-to-b from-white/90 to-rose-50/60 p-4 text-left text-sm leading-relaxed text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] sm:rounded-[1.5rem] sm:p-6 sm:text-[0.95rem] sm:leading-7"
@@ -32,21 +32,15 @@ export function BeforeAskScreen({ onNext }: ScreenProps) {
           transition={{ delay: 0.12, duration: 0.45 }}
         >
           <p>
-            I&apos;ve really enjoyed all the moments we&apos;ve shared, and I&apos;m happy with how
-            naturally things have grown between us.
+            I&apos;ve really enjoyed the moments we&apos;ve shared, and I&apos;m glad nga nagka-close
+            ta.
           </p>
           <p>
-            Looking back, I&apos;m glad nga nagka-close ta and got the chance to know each other
-            this way. I appreciate our conversations, the little moments, and everything in
-            between.
+            I appreciate the little things, our conversations, and the time we spend together.
           </p>
-          <p>
-            I&apos;m looking forward to creating more memories with you, sharing new experiences,
-            and seeing how much more beautiful things can become as we continue getting to know
-            each other.
-          </p>
+          <p>I&apos;m looking forward to making more memories with you.</p>
           <p className="font-semibold text-ink">
-            There&apos;s something I&apos;ve been wanting to ask you...
+            There&apos;s something I&apos;ve been wanting to share with you...
           </p>
         </motion.div>
 
