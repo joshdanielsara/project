@@ -18,10 +18,8 @@ Open [http://localhost:3000](http://localhost:3000).
 3. **Courtship question** — playful NO interactions with a genuine decline path
 4. **Our Little Story** — animated milestone timeline
 5. **Heartfelt letter** — envelope + typing animation
-6. **Before I ask** — intro letter before the big question
-7. **A little more before I ask** — reassurance before the reveal
-8. **Girlfriend question** — yes celebration or “need more time”
-9. **Celebration** — confetti, hearts, and final message
+6. **Shared moments** — appreciation and a gentle lead-in
+7. **Final message** — sincere intentions with no pressure to answer
 
 Music is optional and never autoplays — use the floating music button.
 

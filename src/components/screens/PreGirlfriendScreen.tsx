@@ -6,62 +6,56 @@ import { BackgroundParticles } from "@/components/ui/BackgroundParticles";
 import { FloatingHearts } from "@/components/ui/FloatingHearts";
 import type { ScreenProps } from "@/lib/types";
 
-const fadeUp = {
-  initial: { opacity: 0, y: 14 },
-  animate: { opacity: 1, y: 0 },
-};
-
-export function PreGirlfriendScreen({ onNext }: ScreenProps) {
+export function PreGirlfriendScreen(_props: ScreenProps) {
   return (
     <div className="relative w-full max-w-lg">
       <BackgroundParticles />
       <FloatingHearts count={6} active />
 
-      <SoftCard className="relative z-10">
+      <SoftCard className="relative z-10 text-center">
         <div className="mb-3 flex items-center justify-center gap-2" aria-hidden>
           <span className="text-rose-300">❀</span>
           <span className="text-rose-400">♥</span>
           <span className="text-rose-300">❀</span>
         </div>
 
-        <motion.h1
-          className="font-display text-center text-2xl font-bold text-ink sm:text-3xl"
-          {...fadeUp}
-          transition={{ delay: 0.1, duration: 0.45 }}
+        <motion.p
+          className="font-display text-lg font-semibold text-ink sm:text-xl"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08, duration: 0.4 }}
         >
           A little more from me...
+        </motion.p>
+
+        <motion.h1
+          className="font-display mx-auto mt-4 max-w-md text-3xl font-bold leading-tight text-ink sm:mt-5 sm:text-4xl"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.18, duration: 0.45 }}
+        >
+          I&apos;d love to make this official with you. ❤️
         </motion.h1>
 
-        <motion.div
-          className="mt-5 space-y-4 rounded-[1.25rem] border border-rose-100/90 bg-gradient-to-b from-white/90 to-rose-50/60 p-4 text-left text-sm leading-relaxed text-ink shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] sm:rounded-[1.5rem] sm:p-6 sm:text-[0.95rem] sm:leading-7"
-          {...fadeUp}
-          transition={{ delay: 0.22, duration: 0.45 }}
+        <motion.p
+          className="mx-auto mt-4 max-w-sm text-sm leading-relaxed text-ink-soft sm:mt-5 sm:text-base sm:leading-7"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.32, duration: 0.5 }}
         >
-          <p>
-            I know medyo unexpected ni HAHAHA, but I just want to be honest about how I feel.
-          </p>
-          <p>
-            Kabalo ko nga dili pa ta pwede mahimong legal karon, and I completely understand.
-          </p>
-          <p>
-            I don&apos;t want to rush anything. I just want you to know that my intentions are
-            genuine, and I&apos;m happy to take things one step at a time.
-          </p>
-          <p>I hope we can continue choosing each other. ❤️</p>
-        </motion.div>
+          I want to take what we have seriously, and if you&apos;re ready too, I&apos;d be more
+          than happy to call you mine.
+        </motion.p>
 
-        <motion.button
-          type="button"
-          className="btn-primary focus-ring mt-7 w-full rounded-full px-6 py-3.5 text-base font-semibold"
-          onClick={onNext}
-          aria-label="Continue"
-          {...fadeUp}
-          transition={{ delay: 0.38, duration: 0.45 }}
-          whileHover={{ scale: 1.03, y: -1 }}
-          whileTap={{ scale: 0.97 }}
+        <motion.p
+          className="mx-auto mt-5 max-w-sm text-sm leading-relaxed text-ink-soft sm:mt-6 sm:text-[0.95rem] sm:leading-7"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.48, duration: 0.55 }}
         >
-          Continue ♡
-        </motion.button>
+          If you&apos;re not ready yet, that&apos;s completely okay. I don&apos;t want you to feel
+          pressured or rushed. We can take our time and figure things out together. ❤️
+        </motion.p>
       </SoftCard>
     </div>
   );

@@ -1,36 +1,44 @@
 export type Screen =
   | "welcome"
-  | "courtingIntro"
-  | "whyThis"
-  | "howIFeel"
-  | "courtIntention"
-  | "beforeCourtAsk"
-  | "courtship"
-  | "story"
-  | "message"
-  | "beforeAsk"
-  | "preGirlfriend"
-  | "girlfriend"
-  | "celebration";
+  | "intro"
+  | "context"
+  | "thoughts"
+  | "intent"
+  | "ready"
+  | "confirm"
+  | "history"
+  | "note"
+  | "moments"
+  | "closing";
 
 export const SCREEN_ORDER: Screen[] = [
   "welcome",
-  "courtingIntro",
-  "whyThis",
-  "howIFeel",
-  "courtIntention",
-  "beforeCourtAsk",
-  "courtship",
-  "story",
-  "message",
-  "beforeAsk",
-  "preGirlfriend",
-  "girlfriend",
-  "celebration",
+  "intro",
+  "context",
+  "thoughts",
+  "intent",
+  "ready",
+  "confirm",
+  "history",
+  "note",
+  "moments",
+  "closing",
 ];
 
 const LEGACY_SCREEN_MAP: Record<string, Screen> = {
-  listening: "courtingIntro",
+  listening: "intro",
+  courtingIntro: "intro",
+  whyThis: "context",
+  howIFeel: "thoughts",
+  courtIntention: "intent",
+  beforeCourtAsk: "ready",
+  courtship: "confirm",
+  story: "history",
+  message: "note",
+  beforeAsk: "moments",
+  preGirlfriend: "closing",
+  girlfriend: "closing",
+  celebration: "closing",
 };
 
 export function isScreen(value: string | null | undefined): value is Screen {

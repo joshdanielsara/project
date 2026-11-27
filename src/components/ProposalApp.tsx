@@ -10,8 +10,6 @@ import { OurLittleStoryScreen } from "@/components/screens/OurLittleStoryScreen"
 import { HeartfeltMessageScreen } from "@/components/screens/HeartfeltMessageScreen";
 import { BeforeAskScreen } from "@/components/screens/BeforeAskScreen";
 import { PreGirlfriendScreen } from "@/components/screens/PreGirlfriendScreen";
-import { GirlfriendQuestionScreen } from "@/components/screens/GirlfriendQuestionScreen";
-import { CelebrationScreen } from "@/components/screens/CelebrationScreen";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 import { BackButton } from "@/components/ui/BackButton";
 import { useMusic } from "@/hooks/useMusic";
@@ -95,75 +93,68 @@ export function ProposalApp() {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           >
             {screen === "welcome" && (
-              <WelcomeScreen onNext={() => goTo("courtingIntro")} />
+              <WelcomeScreen onNext={() => goTo("intro")} />
             )}
-            {screen === "courtingIntro" && (
+            {screen === "intro" && (
               <StoryBeatScreen
                 lines={[
                   "Well, mao to ang introduction HAHAHA.",
                   "Actually, naa pa koy something nga gusto i-share nimo.",
                 ]}
-                onNext={() => goTo("whyThis")}
+                onNext={() => goTo("context")}
               />
             )}
-            {screen === "whyThis" && (
+            {screen === "context" && (
               <StoryBeatScreen
                 lines={[
                   "I made this website kay gusto nako i-express properly ang akong intentions.",
                   "Bitaw, mas personal man unta ni kaysa usa ka plain message.",
                 ]}
-                onNext={() => goTo("howIFeel")}
+                onNext={() => goTo("thoughts")}
               />
             )}
-            {screen === "howIFeel" && (
+            {screen === "thoughts" && (
               <StoryBeatScreen
                 lines={[
                   "Kabalo ka, dugay-dugay na pud ni nako gihuna-hunaan.",
                   "I just want to be honest with you, kay I think you deserve that.",
                 ]}
-                onNext={() => goTo("courtIntention")}
+                onNext={() => goTo("intent")}
               />
             )}
-            {screen === "courtIntention" && (
+            {screen === "intent" && (
               <StoryBeatScreen
                 lines={[
                   "Ganahan ko nga i-pursue ka properly, dili lang casually.",
                   "I want to take this seriously, and show you nga sincere gyud ko.",
                 ]}
-                onNext={() => goTo("beforeCourtAsk")}
+                onNext={() => goTo("ready")}
               />
             )}
-            {screen === "beforeCourtAsk" && (
+            {screen === "ready" && (
               <StoryBeatScreen
                 lines={[
                   "And finally, naa koy something nga gusto unta nako i-share nimo.",
                 ]}
                 buttonLabel="Continue ♡"
-                onNext={() => goTo("courtship")}
+                onNext={() => goTo("confirm")}
               />
             )}
-            {screen === "courtship" && (
-              <CourtshipScreen onNext={() => goTo("story")} onBack={goBack} />
+            {screen === "confirm" && (
+              <CourtshipScreen onNext={() => goTo("history")} onBack={goBack} />
             )}
-            {screen === "story" && (
-              <OurLittleStoryScreen onNext={() => goTo("message")} onBack={goBack} />
+            {screen === "history" && (
+              <OurLittleStoryScreen onNext={() => goTo("note")} onBack={goBack} />
             )}
-            {screen === "message" && (
-              <HeartfeltMessageScreen onNext={() => goTo("beforeAsk")} onBack={goBack} />
+            {screen === "note" && (
+              <HeartfeltMessageScreen onNext={() => goTo("moments")} onBack={goBack} />
             )}
-            {screen === "beforeAsk" && (
-              <BeforeAskScreen onNext={() => goTo("preGirlfriend")} onBack={goBack} />
+            {screen === "moments" && (
+              <BeforeAskScreen onNext={() => goTo("closing")} onBack={goBack} />
             )}
-            {screen === "preGirlfriend" && (
-              <PreGirlfriendScreen onNext={() => goTo("girlfriend")} onBack={goBack} />
+            {screen === "closing" && (
+              <PreGirlfriendScreen onNext={() => {}} onBack={goBack} />
             )}
-            {screen === "girlfriend" && (
-              <GirlfriendQuestionScreen
-                onNext={() => goTo("celebration")}
-                onBack={goBack}
-              />
-            )}
-            {screen === "celebration" && <CelebrationScreen />}
           </motion.div>
         </AnimatePresence>
       </main>
