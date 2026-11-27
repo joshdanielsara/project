@@ -62,6 +62,13 @@ export function getPreviousScreen(screen: Screen): Screen | null {
   return SCREEN_ORDER[index - 1] ?? null;
 }
 
+/** Quirky extras unlock after the survey + early teasers (from courtship onward). */
+export function isEnhancedExperience(screen: Screen): boolean {
+  const index = SCREEN_ORDER.indexOf(screen);
+  const unlockIndex = SCREEN_ORDER.indexOf("confirm");
+  return index >= unlockIndex;
+}
+
 export type ScreenProps = {
   onNext: () => void;
   onReplay?: () => void;

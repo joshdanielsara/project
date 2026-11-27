@@ -127,7 +127,7 @@ export function OurLittleStoryScreen({ onNext }: ScreenProps) {
             transition={{ type: "spring", stiffness: 220, damping: 16 }}
             aria-hidden
           >
-            <Heart className="h-5 w-5 fill-rose-400" />
+            <Heart className="h-5 w-5 fill-rose-400 animate-pulse-heart" />
           </motion.div>
 
           <motion.h1

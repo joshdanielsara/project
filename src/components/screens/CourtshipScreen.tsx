@@ -6,7 +6,9 @@ import { useState } from "react";
 import { SoftCard } from "@/components/ui/SoftCard";
 import { PuppyNoPopup } from "@/components/ui/PuppyNoPopup";
 import { FloatingHearts } from "@/components/ui/FloatingHearts";
+import { TypewriterText } from "@/components/ui/TypewriterText";
 import { useConfetti } from "@/hooks/useConfetti";
+import { fadeUpItem, staggerContainer } from "@/lib/motion";
 import type { ScreenProps } from "@/lib/types";
 
 export function CourtshipScreen({ onNext }: ScreenProps) {
@@ -25,52 +27,67 @@ export function CourtshipScreen({ onNext }: ScreenProps) {
       {celebrating && <FloatingHearts count={16} active />}
 
       <SoftCard className="overflow-visible text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-500">
-          <Heart className="h-6 w-6 fill-rose-400 animate-pulse-heart" aria-hidden />
-        </div>
-
-        <h1 className="font-display text-2xl font-bold text-ink sm:text-3xl">
-          Can I officially court you?
-        </h1>
-        <p className="mt-3 text-base text-ink-soft sm:text-lg">
-          I have something I&apos;ve been wanting to share with you.
-        </p>
-
-        <motion.div
-          className="mx-auto mt-5 max-w-md space-y-3 text-sm leading-relaxed text-ink-soft sm:mt-6 sm:text-[0.95rem] sm:leading-7"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p>
-            Kabalo ko medyo dugay na ta nagkaila, and I&apos;m really happy sa kung unsa na ta
-            karon. Pero kabalo pud ko nga daghan pa ta og things nga wala nahibaw-i about sa
-            usag usa.
-          </p>
-          <p>
-            Ganahan pa ko nga mas mailhan tika, mas masabtan tika, and makabuhat pa ta og more
-            memories together. I want to make my intentions clear and show you nga sincere gyud
-            ko sa akong feelings nimo.
-          </p>
-        </motion.div>
-
-        <div className="mt-7 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:justify-center sm:gap-4">
-          <motion.button
-            type="button"
-            className="btn-primary focus-ring min-h-12 min-w-[140px] rounded-2xl px-6 py-3 text-base font-semibold"
-            onClick={handleYes}
-            aria-label="Yes, you may court me"
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.97 }}
-            disabled={celebrating}
+        <motion.div variants={staggerContainer} initial="hidden" animate="show">
+          <motion.div
+            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-100 text-rose-500 shadow-[0_0_24px_rgba(251,113,137,0.35)]"
+            variants={fadeUpItem}
           >
-            YES ❤️
-          </motion.button>
+            <Heart className="h-6 w-6 fill-rose-400 animate-pulse-heart" aria-hidden />
+          </motion.div>
 
-          {!celebrating && (
-            <PuppyNoPopup onGenuineDecline={() => setShowDeclineNote(true)} />
-          )}
-        </div>
+          <motion.h1
+            className="font-display text-2xl font-bold text-ink sm:text-3xl"
+            variants={fadeUpItem}
+          >
+            Can I officially court you?
+          </motion.h1>
+
+          <motion.div variants={fadeUpItem} className="mt-3">
+            <TypewriterText
+              text="I have something I've been wanting to share with you."
+              className="text-base text-ink-soft sm:text-lg"
+              speedMs={20}
+              delayMs={280}
+            />
+          </motion.div>
+
+          <motion.div
+            className="mx-auto mt-5 max-w-md space-y-3 text-sm leading-relaxed text-ink-soft sm:mt-6 sm:text-[0.95rem] sm:leading-7"
+            variants={fadeUpItem}
+          >
+            <p>
+              Kabalo ko medyo dugay na ta nagkaila, and I&apos;m really happy sa kung unsa na ta
+              karon. Pero kabalo pud ko nga daghan pa ta og things nga wala nahibaw-i about sa
+              usag usa.
+            </p>
+            <p>
+              Ganahan pa ko nga mas mailhan tika, mas masabtan tika, and makabuhat pa ta og more
+              memories together. I want to make my intentions clear and show you nga sincere gyud
+              ko sa akong feelings nimo.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="mt-7 flex flex-col items-center gap-3 sm:mt-8 sm:flex-row sm:justify-center sm:gap-4"
+            variants={fadeUpItem}
+          >
+            <motion.button
+              type="button"
+              className="btn-primary focus-ring min-h-12 min-w-[140px] rounded-2xl px-6 py-3 text-base font-semibold"
+              onClick={handleYes}
+              aria-label="Yes, you may court me"
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              disabled={celebrating}
+            >
+              YES ❤️
+            </motion.button>
+
+            {!celebrating && (
+              <PuppyNoPopup onGenuineDecline={() => setShowDeclineNote(true)} />
+            )}
+          </motion.div>
+        </motion.div>
       </SoftCard>
 
       <AnimatePresence>
