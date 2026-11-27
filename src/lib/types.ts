@@ -9,7 +9,8 @@ export type Screen =
   | "history"
   | "note"
   | "moments"
-  | "closing";
+  | "closing"
+  | "thanks";
 
 export const SCREEN_ORDER: Screen[] = [
   "welcome",
@@ -23,6 +24,7 @@ export const SCREEN_ORDER: Screen[] = [
   "note",
   "moments",
   "closing",
+  "thanks",
 ];
 
 const LEGACY_SCREEN_MAP: Record<string, Screen> = {

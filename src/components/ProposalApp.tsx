@@ -10,6 +10,7 @@ import { OurLittleStoryScreen } from "@/components/screens/OurLittleStoryScreen"
 import { HeartfeltMessageScreen } from "@/components/screens/HeartfeltMessageScreen";
 import { BeforeAskScreen } from "@/components/screens/BeforeAskScreen";
 import { PreGirlfriendScreen } from "@/components/screens/PreGirlfriendScreen";
+import { ClosingNoteScreen } from "@/components/screens/ClosingNoteScreen";
 import { MusicToggle } from "@/components/ui/MusicToggle";
 import { BackButton } from "@/components/ui/BackButton";
 import { useMusic } from "@/hooks/useMusic";
@@ -153,7 +154,10 @@ export function ProposalApp() {
               <BeforeAskScreen onNext={() => goTo("closing")} onBack={goBack} />
             )}
             {screen === "closing" && (
-              <PreGirlfriendScreen onNext={() => {}} onBack={goBack} />
+              <PreGirlfriendScreen onNext={() => goTo("thanks")} onBack={goBack} />
+            )}
+            {screen === "thanks" && (
+              <ClosingNoteScreen onNext={() => {}} onBack={goBack} />
             )}
           </motion.div>
         </AnimatePresence>
