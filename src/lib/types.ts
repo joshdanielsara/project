@@ -1,6 +1,7 @@
 export type Screen =
   | "welcome"
   | "intro"
+  | "preface"
   | "context"
   | "thoughts"
   | "intent"
@@ -15,6 +16,7 @@ export type Screen =
 export const SCREEN_ORDER: Screen[] = [
   "welcome",
   "intro",
+  "preface",
   "context",
   "thoughts",
   "intent",

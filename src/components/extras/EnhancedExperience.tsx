@@ -1,15 +1,11 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
 import { CursorTrail } from "@/components/extras/CursorTrail";
-import { PixelCompanion } from "@/components/extras/PixelCompanion";
 import { SecretHearts } from "@/components/extras/SecretHearts";
 import { SoftPetals } from "@/components/extras/SoftPetals";
 
 export function EnhancedExperience() {
-  const [eggUnlocked, setEggUnlocked] = useState(false);
-
   return (
     <AnimatePresence>
       <motion.div
@@ -21,8 +17,7 @@ export function EnhancedExperience() {
       >
         <SoftPetals />
         <CursorTrail />
-        <SecretHearts onComplete={() => setEggUnlocked(true)} />
-        <PixelCompanion mood={eggUnlocked ? "happy" : "idle"} />
+        <SecretHearts onComplete={() => {}} />
       </motion.div>
     </AnimatePresence>
   );

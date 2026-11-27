@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useRef, useState } from "react";
+import { PrefaceScreen } from "@/components/screens/PrefaceScreen";
 import { WelcomeScreen } from "@/components/screens/WelcomeScreen";
 import { StoryBeatScreen } from "@/components/screens/StoryBeatScreen";
 import { CourtshipScreen } from "@/components/screens/CourtshipScreen";
@@ -100,15 +101,16 @@ export function ProposalApp() {
     }
   }, [navigate, screen]);
 
-  const isIntro = screen === "welcome";
+  const isSurvey = screen === "welcome";
   const showExtras = isEnhancedExperience(screen);
   const canGoBack = getPreviousScreen(screen) !== null;
+  const showMusic = !isSurvey;
   const variants = reducedMotion ? pageTransitionReduced : pageTransition;
 
   return (
     <div
       className={`relative flex min-h-dvh flex-1 flex-col overflow-x-hidden transition-[background] duration-700 ${
-        isIntro ? "intro-bg" : "romantic-bg"
+        isSurvey ? "intro-bg" : "romantic-bg"
       } ${showExtras ? "enhanced-stage" : ""}`}
     >
       <a
@@ -122,13 +124,13 @@ export function ProposalApp() {
 
       <AnimatePresence>{intermission && <SectionIntermission />}</AnimatePresence>
 
-      {canGoBack && <BackButton onBack={goBack} neutral={isIntro} />}
-      {!isIntro && <MusicToggle isPlaying={isPlaying} onToggle={toggle} />}
+      {canGoBack && <BackButton onBack={goBack} neutral={isSurvey} />}
+      {showMusic && <MusicToggle isPlaying={isPlaying} onToggle={toggle} />}
 
       <main
         id="main-content"
         className={`relative z-10 flex flex-1 flex-col items-center overflow-y-auto px-4 sm:px-6 ${
-          isIntro ? "justify-start py-8 sm:py-12" : "justify-center py-6 sm:py-14"
+          isSurvey ? "justify-start py-8 sm:py-12" : "justify-center py-6 sm:py-14"
         }`}
       >
         <AnimatePresence mode="wait">
@@ -150,8 +152,11 @@ export function ProposalApp() {
                   "Well, mao to ang introduction HAHAHA.",
                   "Actually, naa pa koy something nga gusto i-share nimo.",
                 ]}
-                onNext={() => goTo("context")}
+                onNext={() => goTo("preface")}
               />
+            )}
+            {screen === "preface" && (
+              <PrefaceScreen onNext={() => goTo("context")} />
             )}
             {screen === "context" && (
               <StoryBeatScreen
